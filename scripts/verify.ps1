@@ -45,6 +45,11 @@ $r=& "$PSScriptRoot\omni-api.ps1" -Path /api/keys
 $key=(($r.Content|ConvertFrom-Json).keys|Where-Object id -eq '857175d4-ca6a-4285-8ccc-addc98d52810')
 Check 'DSH key permits Kiro only' ($key.allowedConnections.Count -eq 1 -and $key.allowedConnections[0] -eq '287b4c9a-1f2f-4834-8615-e9575efd058f') $key.allowedConnections
 $x=& "$PSScriptRoot\dsh-rpc.ps1"
-$default=($x.result.value.namespaces|Where-Object ns -eq 'agent-default-model').value
-Check 'DSH default' ($default.provider -eq 'omniroute' -and $default.model -eq 'DSH-Auto') $default
+$namespaces=$x.result.value.namespaces
+$default=($namespaces|Where-Object ns -eq 'agent-default-model').value
+$omni=($namespaces|Where-Object ns -eq 'llm-pi-ai').value.providers.omniroute
+$modelIds=@($omni.models.id)
+$providerOk=($null -ne $omni -and $omni.baseURL -eq 'http://127.0.0.1:20128/v1' -and (@(Compare-Object ($routes|Sort-Object) ($modelIds|Sort-Object)).Count -eq 0))
+$defaultOk=($default.provider -ne 'omniroute' -or $modelIds -contains $default.model)
+Check 'OmniRoute provider and default model' ($providerOk -and $defaultOk) @{baseURL=$omni.baseURL;models=$modelIds;default="$($default.provider)/$($default.model)"}
 if($failed){throw "$failed verification checks failed"}

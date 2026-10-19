@@ -18,14 +18,14 @@
   "dshDesktop": {
     "version": "0.2.1-rc.2",
     "home": "C:\\Users\\PanovAA\\.dsh-desktop",
-    "provider": "omniroute",
+    "customProvider": "omniroute",
     "api": "openai-completions",
     "baseURL": "http://127.0.0.1:20128/v1",
     "apiKeyEnv": "OMNIROUTE_API_KEY",
-    "defaultModel": "DSH-Auto",
     "models": ["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],
+    "currentDefault": {"provider": "deepseek-account", "model": "deepseek-flash", "reasoningEffort": "high"},
     "contextWindow": 128000,
     "maxTokens": 16000
   },
-  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Five verified Kiro models are used across the four routes; all share one account quota. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
+  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Five verified Kiro models are used across the four routes; all share one account quota. DSH default is currently an external deepseek-account provider, which is outside OmniRoute and outside this project's zero-cost guarantee; the omniroute provider and its four routes stay configured. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
 }

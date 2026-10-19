@@ -9,7 +9,7 @@ The running Desktop uses `C:\Users\PanovAA\.dsh-desktop`. The separate `.dsh` ho
 The native OpenAI-compatible provider is sufficient. Configuration was applied through authenticated `settings/update` and `credentials/set` Remote methods, not by editing internal files.
 
 ```yaml
-provider: omniroute
+customProvider: omniroute
 api: openai-completions
 baseURL: http://127.0.0.1:20128/v1
 apiKeyEnv: OMNIROUTE_API_KEY
@@ -18,7 +18,7 @@ models:
   - DSH-Analysis
   - DSH-Fast
   - DSH-Auto
-default: DSH-Auto
+currentDefault: deepseek-account/deepseek-flash
 contextWindow: 128000
 maxTokens: 16000
 ```
@@ -27,7 +27,7 @@ Context and output limits are conservative client settings, not proof that every
 
 Live Desktop session `session-ca384ce6-6e42-4ebb-b5d7-ac069f7299f7` returned exactly `DSH_OMNIROUTE_OK`. Streaming was exercised by the real Desktop agent. In the same project, its `pwsh` call `Write-Output (2+3)` returned `5`, followed by `DSH_TOOL_OK:5` (events 41, 45, 48; completed at 50). The earlier ACL failure was corrected without disabling sandboxing. A separate user-temp session also passed.
 
-Existing conversations may retain their own selected model. Select OmniRoute → DSH-Auto in such a conversation; the new-session default is already set.
+Existing conversations may retain their own selected model. The default model was later switched in DSH to `deepseek-account/deepseek-flash`, which does not go through OmniRoute; the `omniroute` provider and its four routes remain configured. Select OmniRoute → DSH-Auto in any conversation where an OmniRoute route is wanted.
 
 ## Optional plugin
 

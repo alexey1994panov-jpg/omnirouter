@@ -10,6 +10,6 @@
 
 Порядок включения/отключения моделей и провайдеров: [README](../../README.md). Текущие определения: [configuration.json](configuration.json).
 
-Проверка: 17/17 основных проверок PASS. Все четыре маршрута вернули JavaScript `(a,b)=>a+b` и корректный вызов `add` с аргументами 2 и 3. Coding/Analysis обслужены Qwen Coder, Fast/Auto — Haiku. Подтверждены `isActive=false` у Codex, только Kiro в ключе DSH и прежний default `omniroute/DSH-Auto`. Новая резервная SQLite-копия прошла `integrity_check=ok`.
+Проверка: 17/17 основных проверок PASS. Все четыре маршрута вернули JavaScript `(a,b)=>a+b` и корректный вызов `add` с аргументами 2 и 3. Coding/Analysis обслужены Qwen Coder, Fast/Auto — Haiku. Подтверждены `isActive=false` у Codex, только Kiro в ключе DSH и default `omniroute/DSH-Auto` на тот момент (позднее в DSH выбрана внешняя модель `deepseek-account/deepseek-flash`). Новая резервная SQLite-копия прошла `integrity_check=ok`.
 
 Живая сессия Desktop `session-4e9c8bc3-5e00-4995-a099-0614c83713de` вернула `KIRO_ONLY_OK`. Безопасный тест переключения с недоступного тестового подключения Qwen на Haiku вернул HTTP 200 / `FALLBACK_OK`; при недоступности обоих тестовых кандидатов — HTTP 503. Временные Combos удалены, права ключа восстановлены. После очистки обычный `DSH-Auto` снова вернул HTTP 200 / `KIRO_ONLY_OK` от Haiku. Ни один из этих запросов не использовал Codex.
