@@ -8,10 +8,10 @@
       "287b4c9a-1f2f-4834-8615-e9575efd058f"
     ],
     "routes": [
-      {"name":"DSH-Coding","strategy":"priority","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Analysis","strategy":"priority","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Fast","strategy":"fill-first","models":["kr/claude-haiku-4.5","kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Auto","strategy":"auto","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
+      {"name":"DSH-Coding","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Analysis","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/deepseek-3.2","kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Fast","strategy":"fill-first","models":["kr/claude-haiku-4.5","kr/minimax-m2.5","kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Auto","strategy":"auto","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/minimax-m2.5","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
     ],
     "dshKeyPolicy": {"modelAccessMode":"restricted","allowedModels":[],"allowedCombos":["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],"scopes":["self:usage"]}
   },
@@ -27,5 +27,5 @@
     "contextWindow": 128000,
     "maxTokens": 16000
   },
-  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
+  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Five verified Kiro models are used across the four routes; all share one account quota. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
 }
