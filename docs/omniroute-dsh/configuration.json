@@ -1,0 +1,31 @@
+{
+  "omniroute": {
+    "version": "3.8.51",
+    "host": "127.0.0.1",
+    "port": 20128,
+    "requireApiKey": true,
+    "allowedConnectionIds": [
+      "287b4c9a-1f2f-4834-8615-e9575efd058f"
+    ],
+    "routes": [
+      {"name":"DSH-Coding","strategy":"priority","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Analysis","strategy":"priority","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Fast","strategy":"fill-first","models":["kr/claude-haiku-4.5","kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Auto","strategy":"auto","models":["kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
+    ],
+    "dshKeyPolicy": {"modelAccessMode":"restricted","allowedModels":[],"allowedCombos":["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],"scopes":["self:usage"]}
+  },
+  "dshDesktop": {
+    "version": "0.2.1-rc.2",
+    "home": "C:\\Users\\PanovAA\\.dsh-desktop",
+    "provider": "omniroute",
+    "api": "openai-completions",
+    "baseURL": "http://127.0.0.1:20128/v1",
+    "apiKeyEnv": "OMNIROUTE_API_KEY",
+    "defaultModel": "DSH-Auto",
+    "models": ["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],
+    "contextWindow": 128000,
+    "maxTokens": 16000
+  },
+  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
+}

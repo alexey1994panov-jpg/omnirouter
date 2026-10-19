@@ -1,0 +1,24 @@
+# Секреты и локальные резервные копии — не коммитить
+*.dpapi
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+storage.sqlite
+storage.sqlite-*
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.log
+logs/
+backups/
+*backup*/
+
+# Системное и редакторы
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.vscode/
+.idea/
