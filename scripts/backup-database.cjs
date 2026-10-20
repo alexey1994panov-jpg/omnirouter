@@ -1,14 +1,18 @@
 // Run as the Windows account owning OmniRoute. Destination must be outside the project.
-const Database = require('C:/Users/PanovAA/AppData/Roaming/npm/node_modules/omniroute/node_modules/better-sqlite3');
 const path = require('node:path');
 const fs = require('node:fs');
+const userProfile = process.env.USERPROFILE;
+if (!userProfile) throw new Error('USERPROFILE is not set');
+const Database = require(path.join(
+  process.env.APPDATA, 'npm', 'node_modules', 'omniroute', 'node_modules', 'better-sqlite3'
+));
 const destination = process.argv[2];
 if (!destination || !path.isAbsolute(destination)) throw new Error('Absolute backup destination required');
-const backupRoot = 'C:/Users/PanovAA/OmniRoute-DSH-Backups';
+const backupRoot = path.join(userProfile, 'OmniRoute-DSH-Backups');
 const relative = path.relative(backupRoot, destination);
 if (!relative || path.isAbsolute(relative) || relative === '..' || relative.startsWith(`..${path.sep}`)) throw new Error('Destination must be inside the external backup directory');
 if (fs.existsSync(destination)) throw new Error('Destination already exists; choose a new snapshot filename');
-const source = 'C:/Users/PanovAA/.omniroute/storage.sqlite';
+const source = path.join(userProfile, '.omniroute', 'storage.sqlite');
 if (path.resolve(destination).toLowerCase() === path.resolve(source).toLowerCase()) throw new Error('Cannot overwrite source');
 const db = new Database(source, { readonly: true });
 (async () => {

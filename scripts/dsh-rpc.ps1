@@ -1,6 +1,6 @@
 param([string]$Method='settings/describe', [hashtable]$Arguments=@{})
 $ErrorActionPreference='Stop'
-$log=Get-Content -Raw 'C:\Users\PanovAA\AppData\Roaming\dsh-desktop\logs\harness.log'
+$log=Get-Content -Raw (Join-Path $env:APPDATA 'dsh-desktop\logs\harness.log')
 $urls=[regex]::Matches($log,'http://127\.0\.0\.1:\d+/\?token=[A-Za-z0-9_-]+')
 if(!$urls.Count){throw 'DSH launch URL not found'}
 $launch=$urls[$urls.Count-1].Value

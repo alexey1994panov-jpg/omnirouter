@@ -6,7 +6,7 @@
 - Все `cx/*` модели убраны из четырёх Combos DSH.
 - Ключ DSH разрешает только подключение Kiro `287b4c9a-1f2f-4834-8615-e9575efd058f`.
 - Маршруты сохранены под прежними именами; они используют Qwen Coder и Haiku через Kiro FREE. Общая квота аккаунта ограничивает обе модели.
-- Существующий снимок `configured` относится к прежнему состоянию с подпиской. Новый снимок: `C:\Users\PanovAA\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange\kiro-only`.
+- Существующий снимок `configured` относится к прежнему состоянию с подпиской. Новый снимок: `%USERPROFILE%\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange\kiro-only`.
 
 Порядок включения/отключения моделей и провайдеров: [README](../../README.md). Текущие определения: [configuration.json](configuration.json).
 

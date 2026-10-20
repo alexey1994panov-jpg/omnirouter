@@ -1,0 +1,48 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter *.json | ForEach-Object {
+            try { $null = Get-Content -Raw $_.FullName | ConvertFrom-Json }
+            catch { Write-Error "$($_.FullName): $($_.Exception.Message)"; $failed = $true }
+          }
+          if ($failed) { exit 1 }
+          Write-Host 'All JSON files parse.'
+
+      - name: Parse PowerShell scripts
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors)
+            foreach ($e in $errors) { Write-Error "$($_.FullName):$($e.Extent.StartLineNumber): $($e.Message)"; $failed = $true }
+          }
+          if ($failed) { exit 1 }
+          Write-Host 'All PowerShell scripts parse.'
+
+      - name: Scan for secret-shaped strings
+        shell: pwsh
+        run: |
+          $pattern = 'sk-[A-Za-z0-9]{16,}|Bearer [A-Za-z0-9._-]{24,}|password\s*[:=]\s*[A-Za-z0-9]{8,}'
+          $hits = Get-ChildItem -Recurse -File |
+            Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' } |
+            Select-String -Pattern $pattern
+          if ($hits) {
+            $hits | ForEach-Object { Write-Error "$($_.Path):$($_.LineNumber): $($_.Line.Trim())" }
+            exit 1
+          }
+          Write-Host 'No secret-shaped strings found.'

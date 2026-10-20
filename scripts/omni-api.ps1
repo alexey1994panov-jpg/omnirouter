@@ -1,6 +1,6 @@
 param([string]$Path='/api/health',[string]$Method='Get',[object]$Body=$null,[switch]$Inference)
 $ErrorActionPreference='Stop'
-$backup='C:\Users\PanovAA\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange'
+$backup=Join-Path $env:USERPROFILE 'OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange'
 $name=if($Inference){'dsh-api-key.dpapi'}else{'dashboard-password.dpapi'}
 $secure=ConvertTo-SecureString ((Get-Content -Raw "$backup\$name").Trim())
 $ptr=[Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)

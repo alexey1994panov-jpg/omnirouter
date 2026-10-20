@@ -2,7 +2,7 @@
 
 Current preferred backup: the `kiro-only` subdirectory of the backup root below. It contains the disabled-Codex configuration. The older `configured` snapshot described below enables Codex and is historical; restoring it would undo the user's later exclusion of the subscription. See [current instructions](../../README.md).
 
-Backup root: `C:\Users\PanovAA\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange`. It contains secrets. Do not upload or commit it.
+Backup root: `%USERPROFILE%\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange`. It contains secrets. Do not upload or commit it.
 
 Its `configured` subdirectory contains the finished OmniRoute `.env` and consistent SQLite snapshot plus Desktop profile and managed credentials. The SQLite snapshot passed `integrity_check=ok`. Use this set, while both apps are stopped, to recover the configured integration instead of reverting to the empty initial router. Never mix an old database with a current WAL/SHM pair.
 
@@ -13,7 +13,7 @@ Keep OmniRoute running at `http://127.0.0.1:20128` and use DSH provider `omnirou
 Use the password saved as `dashboard-password.dpapi` for the dashboard. It is encrypted for this Windows user. To retrieve it without printing it in a terminal, run in your own PowerShell:
 
 ```powershell
-$backup = 'C:\Users\PanovAA\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange'
+$backup = Join-Path $env:USERPROFILE 'OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange'
 $secret = ConvertTo-SecureString ((Get-Content -Raw "$backup\dashboard-password.dpapi").Trim())
 $credential = [pscredential]::new('dashboard', $secret)
 Set-Clipboard -Value $credential.GetNetworkCredential().Password

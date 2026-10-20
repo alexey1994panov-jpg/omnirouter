@@ -11,9 +11,9 @@ Captured: 2026-10-19 (Europe/Moscow)
 | npm | 11.6.2 |
 | Codex CLI | 0.142.2 |
 | DSH Desktop Harness | 0.2.1-rc.2 |
-| OmniRoute data | `C:\Users\PanovAA\.omniroute` |
-| Legacy DSH CLI data | `C:\Users\PanovAA\.dsh` |
-| Active DSH Desktop data (discovered during integration) | `C:\Users\PanovAA\.dsh-desktop` |
+| OmniRoute data | `%USERPROFILE%\.omniroute` |
+| Legacy DSH CLI data | `%USERPROFILE%\.dsh` |
+| Active DSH Desktop data (discovered during integration) | `%USERPROFILE%\.dsh-desktop` |
 
 ## Runtime State Before Changes
 
@@ -31,7 +31,7 @@ Captured: 2026-10-19 (Europe/Moscow)
 
 ## Backup
 
-Pre-change backup: `C:\Users\PanovAA\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange`
+Pre-change backup: `%USERPROFILE%\OmniRoute-DSH-Backups\20261019-omniroute-dsh-prechange`
 
 The pre-change backup contains OmniRoute environment configuration, a consistent SQLite backup, and legacy DSH CLI settings, managed credentials, and web profile files. File sizes and SHA-256 hashes were generated after copying. The backup contains secrets and must not be shared or committed.
 

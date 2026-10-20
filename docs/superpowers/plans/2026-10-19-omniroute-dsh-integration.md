@@ -64,7 +64,7 @@
 ### Task 2: Secure the OmniRoute Management and Inference Planes
 
 **Files:**
-- Modify: `C:\Users\PanovAA\.omniroute\.env` through a supported OmniRoute environment command or a narrowly scoped text edit
+- Modify: `%USERPROFILE%\.omniroute\.env` through a supported OmniRoute environment command or a narrowly scoped text edit
 - Modify: OmniRoute credential storage through a supported dashboard/management API only
 - Modify: `docs/omniroute-dsh/security-verification.md`
 

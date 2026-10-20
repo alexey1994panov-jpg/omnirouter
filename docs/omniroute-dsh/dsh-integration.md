@@ -4,7 +4,7 @@
 
 Verified 2026-10-19, DSH Harness 0.2.1-rc.2.
 
-The running Desktop uses `C:\Users\PanovAA\.dsh-desktop`. The separate `.dsh` home belongs to the legacy CLI configuration and is unchanged. Desktop's settings service persists provider rows in `.dsh-desktop\profiles\web\cordis.patch.yml`; credentials live in `.dsh-desktop\.credentials.yaml`.
+The running Desktop uses `%USERPROFILE%\.dsh-desktop`. The separate `.dsh` home belongs to the legacy CLI configuration and is unchanged. Desktop's settings service persists provider rows in `.dsh-desktop\profiles\web\cordis.patch.yml`; credentials live in `.dsh-desktop\.credentials.yaml`.
 
 The native OpenAI-compatible provider is sufficient. Configuration was applied through authenticated `settings/update` and `credentials/set` Remote methods, not by editing internal files.
 
