@@ -55,4 +55,10 @@ Free models: the three Kiro models verified by live tool-call probes (sonnet-4.5
 
 DSH default: the user switched the DSH default to `deepseek-account/deepseek-flash`, outside OmniRoute. Ruling: do not revert a user's model choice; record it and replace the "default must be DSH-Auto" check with a provider+default check (omniroute provider intact, and any omniroute default must be one of the four routes). Cost if wrong: the suite no longer asserts that DSH-Auto is selected by default, because that is now an explicit user decision rather than a configuration invariant.
 
-Not done: GLM Flash connection (needs a free Z.AI key held by the user) and the optional dsh-omniroute plugin (still uninstalled).
+Not done: the optional dsh-omniroute plugin (still uninstalled). GLM connection is now done; see below.
+
+GLM fallback: the user created a free Z.AI account and added a Standard API key through the dashboard. The built-in `glm` provider accepted it on the Coding endpoint, so no custom provider node was needed. `glm/glm-4.7-flash` became the last target in DSH-Coding and DSH-Analysis; the DSH key now permits Kiro and GLM while the four-route allowlist is unchanged. Verified through the real key with a disposable combo (served by glm-4.7-flash, add(2,3) returned), then deleted and the policy restored. Ruling: keep GLM as a last resort rather than a primary, because Z.AI free-tier limits are unpublished. Cost if wrong: when Z.AI rate-limits, the request fails explicitly instead of falling back to a paid model.
+
+Model behaviour: `glm-4.7-flash` is a reasoning model. With a small max_tokens it spends the budget in reasoning_content and returns empty content with no tool call, which looks like "no function calling". Agent-sized budgets are required; documented in free-model-candidates.md.
+
+Stability incident: OmniRoute stopped once during this configuration. The log ends at `[ProxyEgress] glm status=error` and the server did not auto-restart because it had been started without the daemon supervisor. It was restarted with `omniroute serve --daemon`; two controlled GLM requests afterwards did not reproduce the stop, and configuration persisted intact. Ruling: record as an unreproduced incident, keep the daemon supervisor so a future crash restarts automatically, and do not claim a root cause.

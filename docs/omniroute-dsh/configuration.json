@@ -5,11 +5,12 @@
     "port": 20128,
     "requireApiKey": true,
     "allowedConnectionIds": [
-      "287b4c9a-1f2f-4834-8615-e9575efd058f"
+      "287b4c9a-1f2f-4834-8615-e9575efd058f",
+      "cfa776c1-5906-4cd5-acda-a781bc5a5d4b"
     ],
     "routes": [
-      {"name":"DSH-Coding","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Analysis","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/deepseek-3.2","kr/qwen3-coder-next","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Coding","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/claude-haiku-4.5","glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Analysis","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/deepseek-3.2","kr/qwen3-coder-next","kr/claude-haiku-4.5","glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
       {"name":"DSH-Fast","strategy":"fill-first","models":["kr/claude-haiku-4.5","kr/minimax-m2.5","kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
       {"name":"DSH-Auto","strategy":"auto","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/minimax-m2.5","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
     ],
@@ -27,5 +28,5 @@
     "contextWindow": 128000,
     "maxTokens": 16000
   },
-  "note": "Current Kiro-only configuration. Codex connection is disabled and excluded from DSH key permissions. Five verified Kiro models are used across the four routes; all share one account quota. DSH default is currently an external deepseek-account provider, which is outside OmniRoute and outside this project's zero-cost guarantee; the omniroute provider and its four routes stay configured. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
+  "note": "Kiro FREE is the primary path; Z.AI GLM-4.7-Flash is the last-resort fallback in DSH-Coding and DSH-Analysis. Codex connection is disabled and excluded from DSH key permissions. DSH default is currently an external deepseek-account provider, which is outside OmniRoute and outside this project's zero-cost guarantee; the omniroute provider and its four routes stay configured. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
 }

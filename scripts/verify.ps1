@@ -43,7 +43,8 @@ $providers=($r.Content|ConvertFrom-Json).connections
 Check 'Codex subscription disabled' (@($providers|Where-Object {$_.provider -eq 'codex' -and $_.isActive}).Count -eq 0) 'No active Codex connection'
 $r=& "$PSScriptRoot\omni-api.ps1" -Path /api/keys
 $key=(($r.Content|ConvertFrom-Json).keys|Where-Object id -eq '857175d4-ca6a-4285-8ccc-addc98d52810')
-Check 'DSH key permits Kiro only' ($key.allowedConnections.Count -eq 1 -and $key.allowedConnections[0] -eq '287b4c9a-1f2f-4834-8615-e9575efd058f') $key.allowedConnections
+$expectedConnections=@('287b4c9a-1f2f-4834-8615-e9575efd058f','cfa776c1-5906-4cd5-acda-a781bc5a5d4b')
+Check 'DSH key permits Kiro and GLM only' ($key.allowedConnections.Count -eq $expectedConnections.Count -and @(Compare-Object ($expectedConnections|Sort-Object) (@($key.allowedConnections)|Sort-Object)).Count -eq 0) $key.allowedConnections
 $x=& "$PSScriptRoot\dsh-rpc.ps1"
 $namespaces=$x.result.value.namespaces
 $default=($namespaces|Where-Object ns -eq 'agent-default-model').value
