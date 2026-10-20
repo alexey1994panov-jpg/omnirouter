@@ -73,6 +73,6 @@ Set-ExecutionPolicy -Scope Process Bypass -Force
 
 ## Репозиторий
 
-Лицензия — [MIT](LICENSE). CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) на каждый push и pull request проверяет три вещи: JSON разбирается, все `.ps1` проходят синтаксический разбор, в файлах нет строк, похожих на секреты. Эти проверки не обращаются к OmniRoute — реальные запросы выполняет только `scripts/verify.ps1`.
+CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) на каждый push и pull request проверяет три вещи: JSON разбирается, все `.ps1` проходят синтаксический разбор, в файлах нет строк, похожих на секреты. Эти проверки не обращаются к OmniRoute — реальные запросы выполняет только `scripts/verify.ps1`.
 
 Скрипты используют `%USERPROFILE%` и `%APPDATA%`, поэтому не зависят от имени пользователя. Ключи и пароль по-прежнему берутся из DPAPI-файлов в каталоге резервных копий; в репозитории их нет.
