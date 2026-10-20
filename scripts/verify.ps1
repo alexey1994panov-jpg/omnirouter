@@ -12,11 +12,13 @@ try{$null=Invoke-WebRequest http://127.0.0.1:20128/v1/models -UseBasicParsing; $
 Check 'Anonymous access denied' ($status -eq 401) $status
 try{$null=Invoke-WebRequest http://127.0.0.1:20128/api/auth/login -Method Post -ContentType application/json -Body '{"password":"CHANGEME"}' -UseBasicParsing;$status=200}catch{$status=[int]$_.Exception.Response.StatusCode}
 Check 'Default password rejected' ($status -eq 401) $status
-$routes=@('DSH-Coding','DSH-Analysis','DSH-Fast','DSH-Auto')
+$routes=@('DSH-Auto','DSH-Sonnet','DSH-DeepSeek','DSH-Qwen','DSH-MiniMax','DSH-Haiku','DSH-GLM')
 $r=& "$PSScriptRoot\omni-api.ps1" -Inference -Path /v1/models
 $ids=@(($r.Content|ConvertFrom-Json).data.id)
-Check 'Only four DSH models exposed' (@(Compare-Object ($routes|Sort-Object) ($ids|Sort-Object)).Count -eq 0) $ids
-foreach($route in $routes){
+Check 'Only the documented DSH models exposed' (@(Compare-Object ($routes|Sort-Object) ($ids|Sort-Object)).Count -eq 0) $ids
+# DSH-GLM is verified by test-glm.ps1 instead: its free tier answers 429 in bursts.
+$liveRoutes=@($routes | Where-Object { $_ -ne 'DSH-GLM' })
+foreach($route in $liveRoutes){
   $r=& "$PSScriptRoot\omni-api.ps1" -Inference -Path /v1/chat/completions -Method Post -Body @{model=$route;stream=$false;max_tokens=80;messages=@(@{role='user';content='Return only this JavaScript function, with no markdown and no explanation: (a,b)=>a+b'})}
   $j=$r.Content|ConvertFrom-Json
   $answer=$j.choices[0].message.content

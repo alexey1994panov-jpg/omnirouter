@@ -9,12 +9,15 @@
       "cfa776c1-5906-4cd5-acda-a781bc5a5d4b"
     ],
     "routes": [
-      {"name":"DSH-Coding","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/claude-haiku-4.5","glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Analysis","strategy":"priority","models":["kr/claude-sonnet-4.5","kr/deepseek-3.2","kr/qwen3-coder-next","kr/claude-haiku-4.5","glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Fast","strategy":"fill-first","models":["kr/claude-haiku-4.5","kr/minimax-m2.5","kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
-      {"name":"DSH-Auto","strategy":"auto","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/minimax-m2.5","kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
+      {"name":"DSH-Auto","strategy":"auto","models":["kr/claude-sonnet-4.5","kr/qwen3-coder-next","kr/deepseek-3.2","kr/minimax-m2.5","kr/claude-haiku-4.5","glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Sonnet","strategy":"priority","models":["kr/claude-sonnet-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-DeepSeek","strategy":"priority","models":["kr/deepseek-3.2"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Qwen","strategy":"priority","models":["kr/qwen3-coder-next"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-MiniMax","strategy":"priority","models":["kr/minimax-m2.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-Haiku","strategy":"priority","models":["kr/claude-haiku-4.5"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}},
+      {"name":"DSH-GLM","strategy":"priority","models":["glm/glm-4.7-flash"],"config":{"maxRetries":0,"failoverBeforeRetry":true,"healthCheckEnabled":true,"targetTimeoutMs":90000}}
     ],
-    "dshKeyPolicy": {"modelAccessMode":"restricted","allowedModels":[],"allowedCombos":["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],"scopes":["self:usage"]}
+    "dshKeyPolicy": {"modelAccessMode":"restricted","allowedModels":[],"allowedCombos":["DSH-Auto","DSH-Sonnet","DSH-DeepSeek","DSH-Qwen","DSH-MiniMax","DSH-Haiku","DSH-GLM"],"scopes":["self:usage"]}
   },
   "dshDesktop": {
     "version": "0.2.1-rc.2",
@@ -23,10 +26,11 @@
     "api": "openai-completions",
     "baseURL": "http://127.0.0.1:20128/v1",
     "apiKeyEnv": "OMNIROUTE_API_KEY",
-    "models": ["DSH-Coding","DSH-Analysis","DSH-Fast","DSH-Auto"],
+    "models": ["DSH-Auto","DSH-Sonnet","DSH-DeepSeek","DSH-Qwen","DSH-MiniMax","DSH-Haiku","DSH-GLM"],
+    "subagentModelSelection": {"enabled": true, "allowedModels": [{"provider": "omniroute", "model": "DSH-Haiku"}, {"provider": "omniroute", "model": "DSH-MiniMax"}]},
     "currentDefault": {"provider": "deepseek-account", "model": "deepseek-flash", "reasoningEffort": "high"},
     "contextWindow": 128000,
     "maxTokens": 16000
   },
-  "note": "Kiro FREE is the primary path; Z.AI GLM-4.7-Flash is the last-resort fallback in DSH-Coding and DSH-Analysis. Codex connection is disabled and excluded from DSH key permissions. DSH default is currently an external deepseek-account provider, which is outside OmniRoute and outside this project's zero-cost guarantee; the omniroute provider and its four routes stay configured. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
+  "note": "One route per model plus a DSH-Auto group. Kiro FREE is the primary path; Z.AI GLM-4.7-Flash is the last-resort fallback and its free tier rate-limits aggressively (HTTP 429, then a short cooldown). Codex connection is disabled and excluded from DSH key permissions. DSH default is currently an external deepseek-account provider, outside OmniRoute and outside this project's zero-cost guarantee. Secret-free descriptive snapshot, not an automatic importer. Secrets remain in managed storage and external DPAPI backups."
 }
