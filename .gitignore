@@ -15,6 +15,9 @@ logs/
 backups/
 *backup*/
 
+# Результаты нагрузочных прогонов
+bench/
+
 # Системное и редакторы
 Thumbs.db
 Desktop.ini
